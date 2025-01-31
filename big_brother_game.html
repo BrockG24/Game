@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big Brother Announcement</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #fce4ec;
+        }
+        h1 {
+            margin-top: 20px;
+            color: #d81b60;
+        }
+        .game-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .balloon {
+            width: 80px;
+            height: 100px;
+            background-color: pink;
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+        .balloon:hover {
+            transform: scale(1.1);
+        }
+        .hidden {
+            display: none;
+        }
+        .announcement {
+            font-size: 24px;
+            font-weight: bold;
+            color: #d81b60;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tap the Balloons to Reveal the Surprise!</h1>
+    <div class="game-container" id="balloonContainer"></div>
+    <div class="announcement" id="announcement">🎉 Baby #2 on the way! Ashton is going to be a Big Brother – July 2025! 🎉</div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const balloonContainer = document.getElementById("balloonContainer");
+            const announcement = document.getElementById("announcement");
+            
+            let balloons = [];
+            let popped = 0;
+            const totalBalloons = 8;
+            const revealIndex = Math.floor(Math.random() * totalBalloons);
+
+            for (let i = 0; i < totalBalloons; i++) {
+                let balloon = document.createElement("div");
+                balloon.classList.add("balloon");
+                balloon.textContent = "🎈";
+                balloon.dataset.index = i;
+                balloon.addEventListener("click", function() {
+                    if (parseInt(balloon.dataset.index) === revealIndex) {
+                        balloon.textContent = "🎉";
+                        announcement.style.display = "block";
+                        balloonContainer.innerHTML = ''; // Remove all balloons
+                    } else {
+                        balloon.classList.add("hidden");
+                        popped++;
+                    }
+                });
+                balloons.push(balloon);
+                balloonContainer.appendChild(balloon);
+            }
+        });
+    </script>
+</body>
+</html>
